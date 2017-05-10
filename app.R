@@ -214,13 +214,6 @@ ui <- fluidPage(theme = shinytheme("paper"),
                        conditionalPanel(condition = "input.overview_dataset == 'Honey Production'",
                                         plotOutput("overview4", height=600, width=900)))),
     tabPanel(title="Bee Colony Numbers & Stressors",
-             tags$b("Plot Summary:"), tags$br(),
-             tags$i("Bee populations are declining at unusually high rates. 
-                    Much of this is due to climate change, parasites, 
-                    diseases, and industrial agriculture. This is an alarming 
-                    phenomenon as bees are essential for food production. 
-                    All of the data in this visualization is for the year 2015. 
-                    White states have no data."), tags$br(), tags$br(),
              mainPanel(fluidRow(column(width=6, offset=0,
                                        selectInput("map_choropleth", "Color By:", c("Maximum Number of Colonies" = "max_colonies", 
                                                                                     "Number of Colonies Lost" = "lost_colonies",
@@ -237,15 +230,22 @@ ui <- fluidPage(theme = shinytheme("paper"),
                                                    selected="percent_lost_colonies")),
                                 column(width=6, offset=0,
                                        selectInput("map_time_period", "Time Period:", c("Jan-Mar", "Apr-Jun", "Jul-Sep", "Oct-Dec")))),
-                       plotlyOutput("map_bar")
+                       plotlyOutput("map_bar"), width=7
              ),
-             sidebarPanel(tags$style(".well {background-color:white;}"),
+             sidebarPanel(tags$style(".well {background-color:white;}"), 
+                          tags$b("Plot Summary:"), tags$br(),
+                          tags$div(class="header", style="font-size:90%", checked=NA,
+                              tags$i("Bee populations are declining at unusually high rates 
+                                  due to climate change, parasites, 
+                                 diseases, and industrial agriculture. All data in 
+                                this visualization is for the year 2015. 
+                                 White states have no data.")), 
                           # tags$div(class="header", style="font-size:80%", checked=NA,
                           #          "All of the data in these visualizations are for the year 2015. 
                           #          White states have no data."),
                           tags$div(class="header", checked=NA, style="text-align:center",
                                    tags$i("Click on a state for more detailed info about that specific state.")),
-                          plotOutput("map_click_plot", click = "map_click_vals")),
+                          plotOutput("map_click_plot", click = "map_click_vals"), width=5),
              plotOutput("map_bar_plot", height="200px")
     ),
     tabPanel("Pollination in US Agriculture", tags$head(tags$style(HTML(appCSS))),
@@ -276,7 +276,8 @@ ui <- fluidPage(theme = shinytheme("paper"),
                                          agricultural and pollination resources. 
                                          Certain crops are particularly dependent 
                                          on bee pollination and could suffer greatly from
-                                         declining bee populations."), tags$br(), tags$br(),
+                                         declining bee populations. All of the data in 
+                                        this visualization is for the year 2015."), tags$br(), tags$br(),
                           selectInput("sankey_variable", "Select Variable for Analysis:",
                                       c("Bee Colonies" = "Colonies", 
                                         "Pollinated Acres" = "Pollinated.Acres",
